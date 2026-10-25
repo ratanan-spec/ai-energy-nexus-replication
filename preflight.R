@@ -1,0 +1,15 @@
+# Run this before 00_run_all.R. It checks the local, non-redistributed input.
+input <- file.path("data", "raw", "vendor_prices_normalized.csv")
+if (!file.exists(input)) stop("Missing ", input, ". See DATA_PROVENANCE.md.")
+d <- read.csv(input, stringsAsFactors = FALSE, check.names = FALSE)
+need <- c("Date", "NG", "HG", "URA", "ICLN", "SOX", "VIX")
+miss <- setdiff(need, names(d))
+if (length(miss)) stop("Missing columns: ", paste(miss, collapse = ", "))
+d$Date <- as.Date(d$Date)
+if (anyNA(d$Date)) stop("Date parsing failed; provide ISO dates (YYYY-MM-DD).")
+if (anyDuplicated(d$Date)) stop("Duplicate dates found; resolve them before running.")
+if (any(!is.finite(as.matrix(d[need[-1]]))) || any(as.matrix(d[need[-1]]) <= 0))
+  stop("All price columns must be finite and strictly positive.")
+d <- d[order(d$Date), ]
+cat("Input preflight passed. Rows:", nrow(d), "Range:", as.character(min(d$Date)), "to", as.character(max(d$Date)), "\n")
+if (nrow(d) != 3810L) warning("Published aligned sample has 3,810 price dates; investigate this difference.")
