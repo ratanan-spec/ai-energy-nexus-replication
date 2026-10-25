@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the associated article."
+title: "AI-Energy Nexus Replication Code"
+version: 1.0.1-rc
+date-released: 2026-10-25
+authors:
+  - family-names: Bunnag
+    given-names: Tanattrin
+preferred-citation:
+  type: article
+  authors:
+    - family-names: Bunnag
+      given-names: Tanattrin
+  title: "Stress-Contingent Risk Transmission in the AI-Energy Nexus: Evidence from TVP-VAR Connectedness and Nonlinear Predictive Models"
+  journal: "Energies"
+  year: 2026
+  volume: 19
+  issue: 20
+  pages: 4979
+  doi: 10.3390/en19204979
